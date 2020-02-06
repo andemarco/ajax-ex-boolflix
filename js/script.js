@@ -1,7 +1,8 @@
 $(document).ready(function(){
   $('button').click(function(){
-    var searchBar = $('input').val()
-    ajaxCall(searchBar)
+    $('.film_founded li').remove(); //SVUOTO LISTA
+    var searchBar = $('input').val() //PRENDO FILM UTENTE
+    ajaxCall(searchBar) //ESEGUO CHIAMATA
   })
 
 
@@ -42,7 +43,6 @@ $(document).ready(function(){
         "Lingua_Originale": film.original_language,
         "Voto": film.vote_average,
       };
-
       var html = template(context);
       $('.film_founded').append(html)
     }
