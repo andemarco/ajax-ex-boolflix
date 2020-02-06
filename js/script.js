@@ -1,10 +1,21 @@
 $(document).ready(function(){
+  // CLICK SU BUTTON PER RICERCA
   $('button').click(function(){
     $('.film_founded li').remove(); //SVUOTO LISTA
     var searchBar = $('input').val() //PRENDO FILM UTENTE
     ajaxCall(searchBar) //ESEGUO CHIAMATA
     $('input').val('') //SVUOTO BARRA DI RICERCA
   })
+  // RICERCA CON INVIO
+  $('input').keypress(function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+      $('.film_founded li').remove(); //SVUOTO LISTA
+      var searchBar = $('input').val() //PRENDO FILM UTENTE
+      ajaxCall(searchBar) //ESEGUO CHIAMATA
+      $('input').val('') //SVUOTO BARRA DI RICERCA
+    }
+  });
 
 
   //CREO FUNZIONE CHIAMATA PER VISUALIZZARE FILM
