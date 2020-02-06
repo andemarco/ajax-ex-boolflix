@@ -11,9 +11,19 @@
   <body>
     <input type="text" name="" value="" placeholder="Inserisci qui il titolo da cercare">
     <button type="button" name="button">Cerca</button>
-    <ul>
+    <ul class="film_founded">
 
     </ul>
     <script src="js/script.js" charset="utf-8"></script>
+    <script id="entry-template" type="text/x-handlebars-template">
+      <li class="entry">
+        <h4>{{Titolo}}</h4>
+        <ul>
+          <li>Titolo Originale: {{Titolo_Originale}}</li>
+          <li>Lingua Originale: {{Lingua_Originale}}</li>
+          <li>Voto: {{Voto}}</li>
+        </ul>
+      </li>
+    </script>
   </body>
 </html>
