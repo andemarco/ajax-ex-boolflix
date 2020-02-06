@@ -3,6 +3,7 @@ $(document).ready(function(){
     $('.film_founded li').remove(); //SVUOTO LISTA
     var searchBar = $('input').val() //PRENDO FILM UTENTE
     ajaxCall(searchBar) //ESEGUO CHIAMATA
+    $('input').val('') //SVUOTO BARRA DI RICERCA
   })
 
 
