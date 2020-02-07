@@ -11,7 +11,6 @@ $(document).ready(function(){
     }
   });
 
-
   // CREO FUNZIONE PER COMPORTAMENTO PAGINA
   function findYourMovie() {
     $('.film_founded li').remove(); //SVUOTO LISTA
@@ -51,15 +50,28 @@ $(document).ready(function(){
     for (var i = 0; i < filmsFounded.length; i++) {
       var film = filmsFounded[i]
       var vote = Math.ceil((film.vote_average*5)/10);
-
       var context = {
         "Titolo": film.title,
         "Titolo_Originale": film.original_title,
         "Lingua_Originale": film.original_language,
-        "Voto": vote,
+        "stelle": starVote(vote)
       };
+
       var html = template(context);
-      $('.film_founded').append(html)
+      $('.film_founded').append(html);
     }
+  }
+
+  function starVote(vote)  {
+     var totVoto = " ";
+   for (var i = 0; i <5; i++) {
+     if ( i < vote) {
+       var stellavoto = ' <i class="fas fa-star"></i> ';
+     } else {
+       var stellavoto = ' <i class="far fa-star"></i> ';
+     }
+     totVoto = totVoto + stellavoto;
+    }
+    return totVoto;
   }
 });
