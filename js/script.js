@@ -49,11 +49,12 @@ $(document).ready(function(){
 
     for (var i = 0; i < filmsFounded.length; i++) {
       var film = filmsFounded[i]
+      var src = 'img/bandiera_' + film.original_language + '.png'
       var vote = Math.ceil((film.vote_average*5)/10);
       var context = {
         "Titolo": film.title,
         "Titolo_Originale": film.original_title,
-        "Lingua_Originale": film.original_language,
+        "Lingua_Originale": src,
         "stelle": starVote(vote)
       };
 
