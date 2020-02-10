@@ -13,10 +13,9 @@ $(document).ready(function(){
 
   // CREO FUNZIONE PER COMPORTAMENTO PAGINA
   function findYourMovie() {
-    $('.film_founded li').remove(); //SVUOTO LISTA
-    $('.tv_series li').remove(); //SVUOTO LISTA
-    // var searchBar = $('input').val() //PRENDO FILM UTENTE
-    var searchBar = 'rocky';
+    $('.film_founded div').remove(); //SVUOTO LISTA
+    $('.tv_series div').remove(); //SVUOTO LISTA
+    var searchBar = $('input').val() //PRENDO FILM UTENTE
     ajaxFilmCall(searchBar) //ESEGUO CHIAMATA FILM
     ajaxTvCall(searchBar)//ESEGUO CHIAMATA SERIE TV
     $('input').val('') //SVUOTO BARRA DI RICERCA
@@ -76,7 +75,6 @@ $(document).ready(function(){
     var template = Handlebars.compile(source);
     var title;
     var originalTitle;
-
     for (var i = 0; i < results.length; i++) {
       var thisResults = results[i]
 
@@ -89,14 +87,14 @@ $(document).ready(function(){
         title = thisResults.name;
         var container = $('.tv_series');
       }
-
+      var img = thisResults.poster_path;
       var context = {
         "Titolo": title,
         "Titolo_Originale": originalTitle,
         "Lingua_Originale":stampFlag(thisResults.original_language),
         "stelle": starVote(thisResults.vote_average),
         "type" : type,
-        "poster" :  '<img class="lang" src="https://image.tmdb.org/t/p/w185' + thisResults.poster_path + '" alt="en">',
+        "poster" : printPoster(img),
         "Riassunto" : thisResults.overview,
       };
 
@@ -136,4 +134,16 @@ function printNoResult(container) {
   var template = Handlebars.compile(source);
   var html = template();
   container.append(html);
+}
+
+// FUNZIONE STAMPA POSTER
+function printPoster (img) {
+  var link = '<img class="lang" src="https://image.tmdb.org/t/p/w185' + img + '" alt="en">';
+
+  if (link == '<img class="lang" src="https://image.tmdb.org/t/p/w185null" alt="en">') {
+    link = '<img class="lang" src="https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png"alt="en">'
+  } else {
+    link = '<img class="lang" src="https://image.tmdb.org/t/p/w185' + img + '" alt="en">';
+  }
+  return link
 }

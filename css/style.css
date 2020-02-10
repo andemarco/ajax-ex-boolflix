@@ -120,7 +120,7 @@ main {
   display: inline-block;
   position: relative;
   bottom: 100%;
-  /* display: none; */
+  display: none;
 }
 .film_box:hover .hidden_box {
   display: block;
