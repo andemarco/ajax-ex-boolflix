@@ -95,6 +95,7 @@ $(document).ready(function(){
         "Lingua_Originale":stampFlag(thisResults.original_language),
         "stelle": starVote(thisResults.vote_average),
         "type" : type,
+        "poster" :  '<img class="lang" src="https://image.tmdb.org/t/p/w185' + thisResults.poster_path + '" alt="en">',
       };
 
       var html = template(context);
@@ -126,6 +127,7 @@ function stampFlag(lang) {
   }
   return lang
 }
+
 //FUNZIONE PER NESSUN RISULTATO OTTENUTO
 function printNoResult(container) {
   var source = $('#noresult-template').html();
