@@ -14,6 +14,7 @@ $(document).ready(function(){
   // CREO FUNZIONE PER COMPORTAMENTO PAGINA
   function findYourMovie() {
     $('.film_founded li').remove(); //SVUOTO LISTA
+    $('.tv_series li').remove(); //SVUOTO LISTA
     var searchBar = $('input').val() //PRENDO FILM UTENTE
     ajaxFilmCall(searchBar) //ESEGUO CHIAMATA FILM
     ajaxTvCall(searchBar)//ESEGUO CHIAMATA SERIE TV
@@ -23,7 +24,7 @@ $(document).ready(function(){
   //CREO FUNZIONE CHIAMATA PER VISUALIZZARE FILM
   function ajaxFilmCall (searchbar) {
     $.ajax({
-      url: "https://api.themoviedb.org/3/search/movie",
+      url: 'https://api.themoviedb.org/3/search/movie',
       method: "GET",
       data: {
         api_key: '466183d1b959d57a63f0f76bf58bd387',
@@ -33,9 +34,9 @@ $(document).ready(function(){
       success: function (data, stato) {
         if (data.total_results > 0) {
           var filmsFounded = data.results
-          stampFilms(filmsFounded)
+          stampFilms('film', filmsFounded)
         } else {
-          alert ('Non abbiamo trovato il film ricercato')
+          printNoResult($('.film_founded'))
         }
 
       },
@@ -57,9 +58,9 @@ $(document).ready(function(){
       success: function (data, stato) {
         if (data.total_results > 0) {
           var tvFounded = data.results
-          stampTv(tvFounded)
+          stampFilms('tv', tvFounded)
         } else {
-          alert ('Non abbiamo trovato il film ricercato')
+          printNoResult($('.tv_series'))
         }
       },
       error: function() {
@@ -68,58 +69,67 @@ $(document).ready(function(){
     });
   }
 
-  // CREO FUNZIONE PER STAMPARE A SCHERMO FILM TROVATI
-  function stampFilms (filmsFounded) {
+  // CREO FUNZIONE PER STAMPARE A SCHERMO TITOLI TROVATI
+  function stampFilms (type, results) {
     var source = document.getElementById("entry-template").innerHTML;
     var template = Handlebars.compile(source);
+    var title;
+    var originalTitle;
 
-    for (var i = 0; i < filmsFounded.length; i++) {
-      var film = filmsFounded[i]
-      var src = 'img/bandiera_' + film.original_language + '.png'
-      var vote = Math.ceil((film.vote_average*5)/10);
+    for (var i = 0; i < results.length; i++) {
+      var thisResults = results[i]
+
+      if(type == 'film') {
+        originalTitle = thisResults.original_title;
+        title = thisResults.title;
+        var container = $('.film_founded');
+      } else if (type == 'tv'){
+        originalTitle = thisResults.original_name;
+        title = thisResults.name;
+        var container = $('.tv_series');
+      }
+
       var context = {
-        "Titolo": film.title,
-        "Titolo_Originale": film.original_title,
-        "Lingua_Originale": src,
-        "stelle": starVote(vote)
+        "Titolo": title,
+        "Titolo_Originale": originalTitle,
+        "Lingua_Originale":stampFlag(thisResults.original_language),
+        "stelle": starVote(thisResults.vote_average),
+        "type" : type,
       };
 
       var html = template(context);
-      $('.film_founded').append(html);
+      container.append(html);
     }
   }
 
-  // CREO FUNZIONE PER STAMPARE A SCHERMO SERIE TV TROVATE
-  function stampTv (tvFounded) {
-    var source = document.getElementById("entry-template").innerHTML;
-    var template = Handlebars.compile(source);
-
-    for (var i = 0; i < tvFounded.length; i++) {
-      var tvSerie = tvFounded[i]
-      var src = 'img/bandiera_' + tvSerie.original_language + '.png'
-      var vote = Math.ceil((tvSerie.vote_average*5)/10);
-      var context = {
-        "Titolo": tvSerie.name,
-        "Titolo_Originale": tvSerie.original_name,
-        "Lingua_Originale": src,
-        "stelle": starVote(vote)
-      };
-
-      var html = template(context);
-      $('.film_founded').append(html);
-    }
-  }
-
+  // FUNZIONE PER VOTAZIONE A STELLE
   function starVote(vote)  {
-     var totVoto = " ";
-   for (var i = 0; i <5; i++) {
-     if ( i < vote) {
-       var stellavoto = ' <i class="fas fa-star"></i> ';
+    var vote = Math.ceil((vote*5)/10);
+    var stellavoto = '';
+   for (var i = 1; i <= 5; i++) {
+     if ( i <= vote) {
+       stellavoto += ' <i class="fas fa-star"></i> ';
      } else {
-       var stellavoto = ' <i class="far fa-star"></i> ';
+       stellavoto += ' <i class="far fa-star"></i> ';
      }
-     totVoto = totVoto + stellavoto;
     }
-    return totVoto;
+    return stellavoto;
   }
 });
+
+// FUNZIONE PER STAMPA BANDIERE
+function stampFlag(lang) {
+  var languages = ['en', 'es', 'fr', 'it']
+
+  if (languages.includes(lang)) {
+    lang = '<img class="lang" src="img/bandiera_' + lang + '.png" alt="en">';
+  }
+  return lang
+}
+//FUNZIONE PER NESSUN RISULTATO OTTENUTO
+function printNoResult(container) {
+  var source = $('#noresult-template').html();
+  var template = Handlebars.compile(source);
+  var html = template();
+  container.append(html);
+}

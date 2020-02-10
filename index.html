@@ -12,18 +12,27 @@
     <input type="text" name="" value="" placeholder="Inserisci qui il titolo da cercare">
     <button type="button" name="button">Cerca</button>
     <ul class="film_founded">
-
+      <h2>FILMS</h2>
+    </ul>
+    <ul class="tv_series">
+      <h2>SERIE TV</h2>
     </ul>
     <script id="entry-template" type="text/x-handlebars-template">
       <li class="entry">
         <h4>{{Titolo}}</h4>
         <ul>
           <li><strong>Titolo Originale:</strong> {{Titolo_Originale}}</li>
-          <li><strong>Lingua Originale:</strong> <img src="{{{Lingua_Originale}}}" alt=""></li>
+          <li><strong>Lingua Originale:</strong>{{{Lingua_Originale}}}</li>
           <li><strong>Voto: </strong>{{{stelle}}}</li>
+          <li><strong>Tipologia: </strong>{{type}}</li>
         </ul>
       </li>
     </script>
+
+    <script id="noresult-template" type="text/x-handlebars-template">
+      <li>Non ci sono risultati</li>
+    </script>
+
     <script src="js/script.js" charset="utf-8"></script>
   </body>
 </html>
