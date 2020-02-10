@@ -7,13 +7,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.js" integrity="sha256-v28e/OFwH4PmlZT+LbqfwlMOE1hImPNesl1Ha52e6pk=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue|Roboto&display=swap" rel="stylesheet">
     <title>BOOLFLIX</title>
   </head>
   <body>
     <header class="header_container">
       <div class="nav_bar wrap_90">
-        <h2>BOOLFLIX</h2>
+        <h2 class="nav_bar_logo">BOOLFLIX</h2>
         <div class="nav_bar_search">
           <input class="nav_bar_search_input"type="text" name="" value="" placeholder="Inserisci qui il titolo da cercare">
           <button class="nav_bar_search_button"type="button" name="button">Cerca</button>
@@ -21,14 +21,14 @@
       </div>
     </header>
     <main>
-      <div class="films">
-        <ul class="film_founded">
-          <h2>FILMS</h2>
-        </ul>
+      <div class="film">
+        <div class="film_founded">
+
+        </div>
       </div>
       <div class="tv">
         <ul class="tv_series">
-          <h2>SERIE TV</h2>
+
         </ul>
       </div>
     </main>
@@ -37,16 +37,20 @@
 
 
     <script id="entry-template" type="text/x-handlebars-template">
-      <li class="entry">
-        <h4>{{Titolo}}</h4>
-        <ul>
-          <li><strong>Titolo Originale:</strong> {{Titolo_Originale}}</li>
-          <li><strong>Lingua Originale:</strong>{{{Lingua_Originale}}}</li>
-          <li><strong>POSTER:</strong>{{{poster}}}</li>
-          <li><strong>Voto: </strong>{{{stelle}}}</li>
-          <li><strong>Tipologia: </strong>{{type}}</li>
-        </ul>
-      </li>
+      <div class="entry film_box">
+        <div class="film_img">
+          {{{poster}}}
+          <span>{{{type}}}</span>
+        </div>
+        <div class="hidden_box">
+          <h4 class="title">{{Titolo}}</h4>
+          <div class="down">
+            <p class="stars">{{{stelle}}}</p>
+            {{{Lingua_Originale}}}
+          </div>
+          <p class="over">{{Riassunto}}</p>
+        </div>
+      </div>
     </script>
 
     <script id="noresult-template" type="text/x-handlebars-template">

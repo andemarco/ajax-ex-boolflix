@@ -15,7 +15,8 @@ $(document).ready(function(){
   function findYourMovie() {
     $('.film_founded li').remove(); //SVUOTO LISTA
     $('.tv_series li').remove(); //SVUOTO LISTA
-    var searchBar = $('input').val() //PRENDO FILM UTENTE
+    // var searchBar = $('input').val() //PRENDO FILM UTENTE
+    var searchBar = 'rocky';
     ajaxFilmCall(searchBar) //ESEGUO CHIAMATA FILM
     ajaxTvCall(searchBar)//ESEGUO CHIAMATA SERIE TV
     $('input').val('') //SVUOTO BARRA DI RICERCA
@@ -96,6 +97,7 @@ $(document).ready(function(){
         "stelle": starVote(thisResults.vote_average),
         "type" : type,
         "poster" :  '<img class="lang" src="https://image.tmdb.org/t/p/w185' + thisResults.poster_path + '" alt="en">',
+        "Riassunto" : thisResults.overview,
       };
 
       var html = template(context);
