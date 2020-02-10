@@ -6,17 +6,36 @@
     <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.js" integrity="sha256-v28e/OFwH4PmlZT+LbqfwlMOE1hImPNesl1Ha52e6pk=" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>boolflix</title>
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>BOOLFLIX</title>
   </head>
   <body>
-    <input type="text" name="" value="" placeholder="Inserisci qui il titolo da cercare">
-    <button type="button" name="button">Cerca</button>
-    <ul class="film_founded">
-      <h2>FILMS</h2>
-    </ul>
-    <ul class="tv_series">
-      <h2>SERIE TV</h2>
-    </ul>
+    <header class="header_container">
+      <div class="nav_bar wrap_90">
+        <h2>BOOLFLIX</h2>
+        <div class="nav_bar_search">
+          <input class="nav_bar_search_input"type="text" name="" value="" placeholder="Inserisci qui il titolo da cercare">
+          <button class="nav_bar_search_button"type="button" name="button">Cerca</button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="films">
+        <ul class="film_founded">
+          <h2>FILMS</h2>
+        </ul>
+      </div>
+      <div class="tv">
+        <ul class="tv_series">
+          <h2>SERIE TV</h2>
+        </ul>
+      </div>
+    </main>
+
+
+
+
     <script id="entry-template" type="text/x-handlebars-template">
       <li class="entry">
         <h4>{{Titolo}}</h4>
