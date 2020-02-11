@@ -41,7 +41,7 @@ $(document).ready(function(){
 
       },
       error: function() {
-        alert ('cazzo cerchi?')
+        alert ('Non ha indicato il titolo da ricercare')
       }
     });
   }
@@ -64,7 +64,7 @@ $(document).ready(function(){
         }
       },
       error: function() {
-        alert ('cazzo cerchi?')
+
       }
     });
   }
@@ -96,8 +96,8 @@ $(document).ready(function(){
         "type" : type,
         "poster" : printPoster(img),
         "Riassunto" : thisResults.overview,
+        "data-film": thisResults.id,
       };
-
       var html = template(context);
       container.append(html);
     }
@@ -116,34 +116,84 @@ $(document).ready(function(){
     }
     return stellavoto;
   }
+
+
+  // FUNZIONE PER STAMPA BANDIERE
+  function stampFlag(lang) {
+    var languages = ['en', 'es', 'fr', 'it']
+
+    if (languages.includes(lang)) {
+      lang = '<img class="lang" src="img/bandiera_' + lang + '.png" alt="en">';
+    }
+    return lang
+  }
+
+  //FUNZIONE PER NESSUN RISULTATO OTTENUTO
+  function printNoResult(container) {
+    var source = $('#noresult-template').html();
+    var template = Handlebars.compile(source);
+    var html = template();
+    container.append(html);
+  }
+
+  // FUNZIONE STAMPA POSTER
+  function printPoster (img) {
+    var link = '<img class="lang" src="https://image.tmdb.org/t/p/w185' + img + '" alt="en">';
+
+    if (link == '<img class="lang" src="https://image.tmdb.org/t/p/w185null" alt="en">') {
+      link = '<img class="lang" src="https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png"alt="en">'
+    } else {
+      link = '<img class="lang" src="https://image.tmdb.org/t/p/w185' + img + '" alt="en">';
+    }
+    return link
+  }
+
+  // FACCIO CHIAMATA PER ATTORI
+  $(document).on("click",".info",function () {
+    var id = $(this).parent().parent('.film_box').attr("data-film");
+    var title = $(this).siblings('.title').text();
+    $('.more_info').addClass('visible');
+    var sinossi = $(this).parent().parent('.film_box').find('.sinossi').text();
+    console.log(sinossi);
+    $.ajax({
+      url : "https://api.themoviedb.org/3/movie/"+id+"/credits",
+      method : "GET",
+      data : {
+        api_key :"466183d1b959d57a63f0f76bf58bd387",
+      },
+      success : function (data) {
+        var attori = data.cast
+        for (var i = 0; i < 8; i++) {
+          var source = $("#moreinfo-template").html();
+          var template = Handlebars.compile(source);
+          var image = "https://image.tmdb.org/t/p/w185" +  attori[i].profile_path;
+          var context = {
+            actors : attori[i].name,
+            image : image,
+          }
+          var html = template(context);
+          $(".more_info").append(html)
+        }
+        var source = $("#moreinfotitle-template").html();
+        var template = Handlebars.compile(source);
+        var context = {
+          'Titolo': title,
+          'Riassunto': sinossi
+        }
+        var html = template(context);
+        $(".more_info").prepend(html)
+      },
+      error : function (request,state,error) {
+        alert("errore e"+error)
+      }
+    });
+  });
+  $(document).on("click",".more_info",function () {
+    if ($('.more_info').hasClass('visible') == true) {
+      $('.more_info').removeClass('visible');
+      $('.more_info div').remove();
+    } else {
+        $('.more_info').hasClass('visible') == false
+    }
+  });
 });
-
-// FUNZIONE PER STAMPA BANDIERE
-function stampFlag(lang) {
-  var languages = ['en', 'es', 'fr', 'it']
-
-  if (languages.includes(lang)) {
-    lang = '<img class="lang" src="img/bandiera_' + lang + '.png" alt="en">';
-  }
-  return lang
-}
-
-//FUNZIONE PER NESSUN RISULTATO OTTENUTO
-function printNoResult(container) {
-  var source = $('#noresult-template').html();
-  var template = Handlebars.compile(source);
-  var html = template();
-  container.append(html);
-}
-
-// FUNZIONE STAMPA POSTER
-function printPoster (img) {
-  var link = '<img class="lang" src="https://image.tmdb.org/t/p/w185' + img + '" alt="en">';
-
-  if (link == '<img class="lang" src="https://image.tmdb.org/t/p/w185null" alt="en">') {
-    link = '<img class="lang" src="https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png"alt="en">'
-  } else {
-    link = '<img class="lang" src="https://image.tmdb.org/t/p/w185' + img + '" alt="en">';
-  }
-  return link
-}

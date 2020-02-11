@@ -27,34 +27,46 @@
         </div>
       </div>
       <div class="tv">
-        <ul class="tv_series">
+        <div class="tv_series">
 
-        </ul>
+        </div>
+      </div>
+      <div class="more_info">
+
       </div>
     </main>
-
-
-
-
     <script id="entry-template" type="text/x-handlebars-template">
-      <div class="entry film_box">
+      <div class="entry film_box" data-film="{{data-film}}">
         <div class="film_img">
           {{{poster}}}
           <span>{{{type}}}</span>
         </div>
         <div class="hidden_box">
           <h4 class="title">{{Titolo}}</h4>
-          <div class="down">
-            <p class="stars">{{{stelle}}}</p>
+          <p class="stars">Recensioni: {{{stelle}}}</p>
             {{{Lingua_Originale}}}
-          </div>
-          <p class="over">{{Riassunto}}</p>
+          <p class="display_none sinossi">{{Riassunto}}</p>
+        <div class="info"><span>INFO</span></div>
         </div>
       </div>
     </script>
 
     <script id="noresult-template" type="text/x-handlebars-template">
       <div class="no_result">Ops!Questo titolo ci manca :(</div>
+    </script>
+
+    <script id="moreinfotitle-template" type="text/x-handlebars-template">
+      <div class="moreinfotitle">
+        <h4>{{Titolo}}</h4>
+        <p>{{Riassunto}}</p>
+      </div>
+    </script>
+
+    <script id="moreinfo-template" type="text/x-handlebars-template">
+      <div class="actors">
+        <p>{{actors}}</p>
+        <img src="{{{image}}}" alt="">
+      </div>
     </script>
 
     <script src="js/script.js" charset="utf-8"></script>
