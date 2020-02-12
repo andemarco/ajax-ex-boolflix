@@ -11,30 +11,44 @@
     <title>BOOLFLIX</title>
   </head>
   <body>
+    <!-- HEADER -->
     <header class="header_container">
+      <!-- NAV BAR -->
       <div class="nav_bar wrap_90">
         <h2 class="nav_bar_logo">BOOLFLIX</h2>
         <div class="nav_bar_search">
-          <input class="nav_bar_search_input"type="text" name="" value="" placeholder="Inserisci qui il titolo da cercare">
-          <button class="nav_bar_search_button"type="button" name="button">Cerca</button>
+          <input class="nav_bar_search_input"type="text" name="Search Film" value="" placeholder="Inserisci qui il titolo da cercare">
+          <button class="nav_bar_search_button" type="button" name="button">Cerca</button>
         </div>
       </div>
+      <!-- /NAV BAR -->
     </header>
+    <!-- /HEADER -->
+    <!-- MAIN -->
     <main>
+      <!-- FILM SECTION -->
       <div class="film">
         <div class="film_founded">
 
         </div>
       </div>
+      <!-- /FILM SECTION -->
+      <!-- TV SHOW SECTION -->
       <div class="tv">
         <div class="tv_series">
 
         </div>
       </div>
+      <!-- /TV SHOW SECTION -->
+      <!-- INFO WINDOW -->
       <div class="more_info">
 
       </div>
+      <!-- INFO WINDOW -->
     </main>
+    <!-- /MAIN -->
+
+    <!-- TEMPLATE FILM FOUNDED -->
     <script id="entry-template" type="text/x-handlebars-template">
       <div class="entry film_box" data-film="{{data-film}}">
         <div class="film_img">
@@ -50,25 +64,26 @@
         </div>
       </div>
     </script>
-
+    <!-- TEMPLATE FILM NOT FOUNDED -->
     <script id="noresult-template" type="text/x-handlebars-template">
       <div class="no_result">Ops!Questo titolo ci manca :(</div>
     </script>
-
+    <!-- TEMPLATE INFO WINDOW -->
     <script id="moreinfotitle-template" type="text/x-handlebars-template">
       <div class="moreinfotitle">
+        <span class="close_window"><i class="fas fa-times-circle"></i></span>
         <h4>{{Titolo}}</h4>
         <p>{{Riassunto}}</p>
       </div>
     </script>
-
+    <!-- TEMPLATE CAST -->
     <script id="moreinfo-template" type="text/x-handlebars-template">
       <div class="actors">
         <p>{{actors}}</p>
         <img src="{{{image}}}" alt="">
       </div>
     </script>
-
+    <!-- JAVASCRIPT LINK -->
     <script src="js/script.js" charset="utf-8"></script>
   </body>
 </html>

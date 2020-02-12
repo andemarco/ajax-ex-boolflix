@@ -244,3 +244,22 @@ main {
 .visible {
   display: block;
 }
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 4px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(240, 52, 52, .5);
+  padding: 10px
+}
+.close_window {
+  position: absolute;
+  left: 96%;
+  top: 4%;
+  color: red;
+}
+.close_window:hover {
+  cursor: pointer;
+}

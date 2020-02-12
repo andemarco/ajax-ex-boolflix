@@ -10,6 +10,15 @@ $(document).ready(function(){
       findYourMovie();
     }
   });
+  // ESEGUO CLICK SU X PER CHIUSURA FINESTRA
+  $(document).on("click",".close_window",function () {
+    closeWindow();
+  });
+
+  // CHIUSURA CON ESC
+  $(document).keyup(function(e) {
+  if (e.keyCode === 27) $('.close_window').click();   // esc
+  });
 
   // CREO FUNZIONE PER COMPORTAMENTO PAGINA
   function findYourMovie() {
@@ -117,7 +126,6 @@ $(document).ready(function(){
     return stellavoto;
   }
 
-
   // FUNZIONE PER STAMPA BANDIERE
   function stampFlag(lang) {
     var languages = ['en', 'es', 'fr', 'it']
@@ -148,13 +156,18 @@ $(document).ready(function(){
     return link
   }
 
+
+  // FUNZIONE PER CHIUSURA FINESTRA
+  function closeWindow() {
+    $('.more_info').removeClass('visible');
+    $('.more_info div').remove();
+  }
   // FACCIO CHIAMATA PER ATTORI
   $(document).on("click",".info",function () {
     var id = $(this).parent().parent('.film_box').attr("data-film");
     var title = $(this).siblings('.title').text();
     $('.more_info').addClass('visible');
     var sinossi = $(this).parent().parent('.film_box').find('.sinossi').text();
-    console.log(sinossi);
     $.ajax({
       url : "https://api.themoviedb.org/3/movie/"+id+"/credits",
       method : "GET",
@@ -184,16 +197,8 @@ $(document).ready(function(){
         $(".more_info").prepend(html)
       },
       error : function (request,state,error) {
-        alert("errore e"+error)
+        alert(error)
       }
     });
-  });
-  $(document).on("click",".more_info",function () {
-    if ($('.more_info').hasClass('visible') == true) {
-      $('.more_info').removeClass('visible');
-      $('.more_info div').remove();
-    } else {
-        $('.more_info').hasClass('visible') == false
-    }
   });
 });
